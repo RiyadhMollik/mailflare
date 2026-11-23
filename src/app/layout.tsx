@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { LanguageProvider } from "@/components/language-provider";
 import { DEFAULT_LOCALE, getDirection } from "@/lib/i18n/utils";
@@ -9,9 +9,17 @@ import { themeBootstrapScript } from "@/components/theme-utils";
 import { getHomeBranding } from "./home-server-utils";
 import "./globals.css";
 
-const geistSans = Geist({
+// DevToSoft brand fonts: Inter for body (kept on the old --font-geist-sans variable so nothing else
+// changes) and Space Grotesk for display headings (`font-display`).
+const geistSans = Inter({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+	variable: "--font-display-var",
+	subsets: ["latin"],
+	weight: ["500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -23,8 +31,8 @@ const geistMono = Geist_Mono({
 // viewportFit "cover" lets the shell reach the notch and home indicator; the env(safe-area-inset-*) padding keeps content clear of them.
 export const viewport: Viewport = {
 	themeColor: [
-		{ media: "(prefers-color-scheme: light)", color: "#f6f8fc" },
-		{ media: "(prefers-color-scheme: dark)", color: "#202124" },
+		{ media: "(prefers-color-scheme: light)", color: "#f7f8ee" },
+		{ media: "(prefers-color-scheme: dark)", color: "#050505" },
 	],
 	viewportFit: "cover",
 };
@@ -68,7 +76,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 				<script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
 				<link rel="icon" href="/api/branding/icon"></link>
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+			<body className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}>
 				<LanguageProvider initialLocale={locale} initialMessages={messages}><Providers initialBranding={branding}>{children}</Providers></LanguageProvider>
 			</body>
 		</html>

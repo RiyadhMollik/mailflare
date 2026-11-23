@@ -4,19 +4,39 @@
 
 :root {
 	--color-neutral-500: #6b6b6b;
-	--background: #f6f8fc;
-	--foreground: #202124;
+	--background: #f7f8ee;
+	--foreground: #0b0b0b;
 	--card: #ffffff;
-	--muted: #eef3fb;
-	--border: #dadce0;
-	--primary: #0b57d0;
+	--muted: #eff2dc;
+	--border: #dfe2cc;
+	--primary: #566100;
 	--primary-foreground: #ffffff;
 }
+
+/* ── DevToSoft brand ─────────────────────────────────────────────────────────
+   Ink #050505 + lime #DDF000 (devtosoft.com). Dark is the default theme. In light mode the accent
+   scale (formerly Tailwind blue) becomes an olive ramp so white text on buttons stays readable. */
+:root {
+	--color-blue-50: #f9fce3;
+	--color-blue-100: #f1f8b8;
+	--color-blue-200: #e6f27a;
+	--color-blue-300: #DDF000;
+	--color-blue-400: #c8d900;
+	--color-blue-500: #9aa800;
+	--color-blue-600: #6f7c00;
+	--color-blue-700: #566100;
+	--color-blue-800: #424a00;
+	--color-blue-900: #333a00;
+	--color-blue-950: #1b1f00;
+	--radius-brand: 12px;
+}
+
 
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--font-sans: var(--font-geist-sans);
+	--font-display: var(--font-display-var), var(--font-geist-sans), system-ui, sans-serif;
 	--no-font-mono: var(--font-geist-mono);
 }
 
@@ -173,7 +193,7 @@ pre {
 	color: #525252;
 }
 .email-body a {
-	color: #2563eb;
+	color: #566100;
 	text-decoration: underline;
 }
 .email-body p {
@@ -211,7 +231,7 @@ pre {
 	background: #e5e5e5;
 }
 .email-quote-toggle > summary:focus-visible {
-	outline: 2px solid #2563eb;
+	outline: 2px solid #566100;
 	outline-offset: 2px;
 }
 .email-quote-content {
@@ -225,7 +245,7 @@ button {
 /* ── Dark theme ──────────────────────────────────────────────────────────────
    Screens use the Tailwind palette directly (bg-white, text-neutral-900, bg-blue-50…). Rather than
    editing every component, the dark theme remaps the palette variables under .dark: neutrals follow
-   Gmail's dark palette (#202124, #303134, #3c4043, #9aa0a6, #e8eaed…) and accents are inverted
+   Gmail's dark palette (#050505, #101010, #222222, #9a9a9a, #e8e8e8…) and accents are inverted
    (50↔950, 100↔900…). The exceptions come right after. The .dark class is set on <html>
    (theme-utils.ts). */
 /* Modal backdrops and other scrims must use `black` (optionally with a `dark:` alpha), never the
@@ -233,81 +253,81 @@ button {
    instead of dimming it. */
 .dark {
 	color-scheme: dark;
-	--background: #202124;
-	--foreground: #e8eaed;
-	--card: #292a2d;
-	--muted: #303134;
-	--border: #3c4043;
-	--primary: #8ab4f8;
-	--primary-foreground: #202124;
-	--color-white: #292a2d;
+	--background: #050505;
+	--foreground: #e8e8e8;
+	--card: #0e0e0e;
+	--muted: #101010;
+	--border: #222222;
+	--primary: #DDF000;
+	--primary-foreground: #050505;
+	--color-white: #0e0e0e;
 	--color-black: #000;
-	--color-neutral-50: #303134;
-	--color-neutral-100: #35363a;
-	--color-neutral-200: #3c4043;
-	--color-neutral-300: #5f6368;
-	--color-neutral-400: #9aa0a6;
-	--color-neutral-500: #a8aeb4;
-	--color-neutral-600: #bdc1c6;
-	--color-neutral-700: #dadce0;
-	--color-neutral-800: #e8eaed;
-	--color-neutral-900: #f1f3f4;
+	--color-neutral-50: #101010;
+	--color-neutral-100: #141414;
+	--color-neutral-200: #222222;
+	--color-neutral-300: #3a3a3a;
+	--color-neutral-400: #9a9a9a;
+	--color-neutral-500: #a3a3a3;
+	--color-neutral-600: #b5b5b5;
+	--color-neutral-700: #d0d0d0;
+	--color-neutral-800: #e8e8e8;
+	--color-neutral-900: #f5f5f5;
 	--color-neutral-950: #ffffff;
-	--color-gray-50: #303134;
-	--color-gray-100: #35363a;
-	--color-gray-200: #3c4043;
-	--color-gray-300: #5f6368;
-	--color-gray-400: #80868b;
-	--color-gray-500: #9aa0a6;
-	--color-gray-600: #bdc1c6;
-	--color-gray-700: #dadce0;
-	--color-gray-800: #e8eaed;
-	--color-gray-900: #f1f3f4;
+	--color-gray-50: #101010;
+	--color-gray-100: #141414;
+	--color-gray-200: #222222;
+	--color-gray-300: #3a3a3a;
+	--color-gray-400: #6f6f6f;
+	--color-gray-500: #9a9a9a;
+	--color-gray-600: #b5b5b5;
+	--color-gray-700: #d0d0d0;
+	--color-gray-800: #e8e8e8;
+	--color-gray-900: #f5f5f5;
 	--color-gray-950: #ffffff;
-	--color-stone-50: #303134;
-	--color-stone-100: #35363a;
-	--color-stone-200: #3c4043;
-	--color-stone-300: #5f6368;
-	--color-stone-400: #80868b;
-	--color-stone-500: #9aa0a6;
-	--color-stone-600: #bdc1c6;
-	--color-stone-700: #dadce0;
-	--color-stone-800: #e8eaed;
-	--color-stone-900: #f1f3f4;
+	--color-stone-50: #101010;
+	--color-stone-100: #141414;
+	--color-stone-200: #222222;
+	--color-stone-300: #3a3a3a;
+	--color-stone-400: #6f6f6f;
+	--color-stone-500: #9a9a9a;
+	--color-stone-600: #b5b5b5;
+	--color-stone-700: #d0d0d0;
+	--color-stone-800: #e8e8e8;
+	--color-stone-900: #f5f5f5;
 	--color-stone-950: #ffffff;
-	--color-zinc-50: #303134;
-	--color-zinc-100: #35363a;
-	--color-zinc-200: #3c4043;
-	--color-zinc-300: #5f6368;
-	--color-zinc-400: #80868b;
-	--color-zinc-500: #9aa0a6;
-	--color-zinc-600: #bdc1c6;
-	--color-zinc-700: #dadce0;
-	--color-zinc-800: #e8eaed;
-	--color-zinc-900: #f1f3f4;
+	--color-zinc-50: #101010;
+	--color-zinc-100: #141414;
+	--color-zinc-200: #222222;
+	--color-zinc-300: #3a3a3a;
+	--color-zinc-400: #6f6f6f;
+	--color-zinc-500: #9a9a9a;
+	--color-zinc-600: #b5b5b5;
+	--color-zinc-700: #d0d0d0;
+	--color-zinc-800: #e8e8e8;
+	--color-zinc-900: #f5f5f5;
 	--color-zinc-950: #ffffff;
-	--color-slate-50: #303134;
-	--color-slate-100: #35363a;
-	--color-slate-200: #3c4043;
-	--color-slate-300: #5f6368;
-	--color-slate-400: #80868b;
-	--color-slate-500: #9aa0a6;
-	--color-slate-600: #bdc1c6;
-	--color-slate-700: #dadce0;
-	--color-slate-800: #e8eaed;
-	--color-slate-900: #f1f3f4;
+	--color-slate-50: #101010;
+	--color-slate-100: #141414;
+	--color-slate-200: #222222;
+	--color-slate-300: #3a3a3a;
+	--color-slate-400: #6f6f6f;
+	--color-slate-500: #9a9a9a;
+	--color-slate-600: #b5b5b5;
+	--color-slate-700: #d0d0d0;
+	--color-slate-800: #e8e8e8;
+	--color-slate-900: #f5f5f5;
 	--color-slate-950: #ffffff;
-	--color-blue-50: #2c3d57;
-	--color-blue-100: #33486a;
-	--color-blue-200: oklch(42.4% 0.199 265.638);
-	--color-blue-300: oklch(48.8% 0.243 264.376);
-	--color-blue-400: oklch(54.6% 0.245 262.881);
-	--color-blue-500: oklch(62.3% 0.214 259.815);
-	--color-blue-600: oklch(70.7% 0.165 254.624);
-	--color-blue-700: oklch(80.9% 0.105 251.813);
-	--color-blue-800: oklch(88.2% 0.059 254.128);
-	--color-blue-900: oklch(93.2% 0.032 255.585);
-	--color-blue-950: oklch(97% 0.014 254.604);
+	--color-blue-50: #1a1f00;
+	--color-blue-100: #262d00;
+	--color-blue-200: #3a4400;
+	--color-blue-300: #566300;
+	--color-blue-400: #8a9a00;
+	--color-blue-500: #b9cc00;
+	--color-blue-600: #DDF000;
+	--color-blue-700: #e6f64d;
+	--color-blue-800: #eefa8a;
+	--color-blue-900: #f5fcc0;
+	--color-blue-950: #fbfee6;
 	--color-red-50: oklch(25.8% 0.092 26.042);
 	--color-red-100: oklch(39.6% 0.141 25.723);
 	--color-red-200: oklch(44.4% 0.177 26.899);
@@ -481,8 +501,10 @@ button {
 /* Dark chips with white text (tooltip, compose header): the chip turns light, the text turns dark */
 .dark .bg-neutral-900.text-white, .dark .bg-neutral-800.text-white, .dark .bg-neutral-950.text-white { color: var(--color-neutral-50); }
 /* Buttons and highlights with white text keep their original saturated background, not the inverted one */
-.dark .bg-blue-600 { background-color: oklch(54.6% 0.245 262.881); }
-.dark .bg-blue-700, .dark .hover\:bg-blue-700:hover { background-color: oklch(48.8% 0.243 264.376); }
+.dark .bg-blue-600 { background-color: #DDF000; }
+.dark .bg-blue-700, .dark .hover\:bg-blue-700:hover { background-color: #c9dc00; }
+.dark .bg-blue-600.text-white, .dark .bg-blue-700.text-white,
+.dark .bg-blue-600 .text-white, .dark .bg-blue-600 .fill-white { color: #050505; fill: #050505; }
 .dark .bg-red-600 { background-color: oklch(57.7% 0.245 27.325); }
 .dark .bg-red-700, .dark .hover\:bg-red-700:hover { background-color: oklch(50.5% 0.213 27.518); }
 .dark .bg-green-600 { background-color: oklch(62.7% 0.194 149.214); }
@@ -492,19 +514,19 @@ button {
 .dark .bg-pink-600 { background-color: oklch(59.2% 0.249 0.584); }
 .dark .bg-orange-600 { background-color: oklch(64.6% 0.222 41.116); }
 /* Fixed-hex backgrounds (page, panels) and their hover: variants (inbox rows, mailbox selector) */
-.dark .bg-\[\#f6f8fc\], .dark .bg-\[\#f7f9fc\] { background-color: #202124; }
-.dark .bg-\[\#f2f6fc\], .dark .bg-\[\#f1f4fa\], .dark .bg-\[\#f0f3f9\] { background-color: #303134; }
-.dark .bg-\[\#eef3fb\], .dark .bg-\[\#eaf1fb\], .dark .bg-\[\#e6ecf6\] { background-color: #383a3e; }
+.dark .bg-\[\#f6f8fc\], .dark .bg-\[\#f7f9fc\] { background-color: #050505; }
+.dark .bg-\[\#f2f6fc\], .dark .bg-\[\#f1f4fa\], .dark .bg-\[\#f0f3f9\] { background-color: #101010; }
+.dark .bg-\[\#eef3fb\], .dark .bg-\[\#eaf1fb\], .dark .bg-\[\#e6ecf6\] { background-color: #1a1a1a; }
 .dark .hover\:bg-\[\#f2f6fc\]:hover,
-.dark .bg-\[\#f2f6fc\] { background-color: #35363a; }
-.dark .hover\:bg-\[\#e6ecf6\]:hover { background-color: #3c4043; }
+.dark .bg-\[\#f2f6fc\] { background-color: #141414; }
+.dark .hover\:bg-\[\#e6ecf6\]:hover { background-color: #222222; }
 /* Soft shadows turn dark */
 .dark .shadow-neutral-200, .dark .shadow-neutral-300 { --tw-shadow-color: rgb(0 0 0 / 0.6); }
 /* HTML emails assume a white background: keep them on light "paper" inside the dark theme */
 .dark .email-body {
 	color-scheme: light;
 	/* background: #fff; */
-	/* color: #202124; */
+	/* color: #050505; */
 	border-radius: 0.75rem;
 	padding: 1rem;
 }
