@@ -14,6 +14,7 @@ import { verifySecondFactor } from "@/lib/auth/mfa";
 import { clearSecondFactorAttempt, reserveSecondFactorAttempt } from "@/lib/auth/second-factor-attempts";
 import { countUnusedRecoveryCodes } from "@/lib/auth/recovery-codes";
 import { createDeviceKey, revokeDeviceKey } from "@/lib/auth/device-keys";
+import { createSession } from "@/lib/auth/session";
 import { authenticateApiRequest } from "@/lib/api/key-auth";
 
 function json(body: unknown, status = 200, headers: Record<string, string> = {}) {
@@ -25,6 +26,12 @@ function json(body: unknown, status = 200, headers: Record<string, string> = {})
  * device key (shown under Settings → Devices, revocable) instead of a session.
  * With MFA on, the first call returns `{ mfaRequired, challengeToken }` and a
  * second call with `{ challengeToken, code, deviceName }` finishes.
+ *
+ * `session: true` also returns a normal session as `sessionToken` for a client
+ * that is a full app (not just a JMAP mail client). It is sent as
+ * `Authorization: Bearer <sessionToken>` to the same /api routes the website
+ * uses, so it carries the account's web permissions and is revoked like any
+ * session (logout, password change). Off by default: plain device keys stay jmap-only.
  */
 export async function POST(request: Request) {
 	const env = getEnv();
@@ -76,7 +83,8 @@ export async function POST(request: Request) {
 	const device = await createDeviceKey(env, userId, parsed.data.deviceName);
 	await recordAuthActivity(env, { action: "auth.device_login", userId, request });
 	const origin = env.APP_URL?.trim().replace(/\/+$/, "") || new URL(request.url).origin;
-	return json({ ok: true, key: device.key, keyId: device.id, email: user?.email, sessionUrl: `${origin}/jmap/session` });
+	const sessionToken = parsed.data.session ? await createSession(env, userId) : undefined;
+	return json({ ok: true, key: device.key, keyId: device.id, email: user?.email, sessionUrl: `${origin}/jmap/session`, ...(sessionToken ? { sessionToken } : {}) });
 }
 
 /** Signing out in the app: the device key revokes itself (and its push registration). */
