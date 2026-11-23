@@ -7,7 +7,7 @@ import { canDeliverTo, registerPushDevice, unregisterPushDevice } from "@/lib/pu
 import { isRelayHandle } from "@/lib/push/relay";
 import { isValidDevicePublicKey } from "@/lib/push/native-crypto";
 
-const registrationSchema = z.object({
+const apnsRegistration = z.object({
 	platform: z.literal("apns"),
 	// An APNs token (hex) or a handle issued by a push relay.
 	token: z.string().regex(/^(?:[0-9a-fA-F]{32,200}|mfr1\.[A-Za-z0-9_-]{20,1000})$/),
@@ -18,6 +18,19 @@ const registrationSchema = z.object({
 	accountRef: z.string().min(1).max(100).optional(),
 });
 
+// Android: an FCM registration token. Case-sensitive, so it is stored as sent.
+const fcmRegistration = z.object({
+	platform: z.literal("fcm"),
+	token: z.string().regex(/^[A-Za-z0-9_:.-]{20,4096}$/),
+	environment: z.enum(["production", "sandbox"]).default("production"),
+	topic: z.string().min(3).max(200).default("android"),
+	publicKey: z.string().max(200).nullable().default(null),
+	previews: z.boolean().default(true),
+	accountRef: z.string().min(1).max(100).optional(),
+});
+
+const registrationSchema = z.discriminatedUnion("platform", [apnsRegistration, fcmRegistration]);
+
 async function authenticate(env: CloudflareEnv, request: Request) {
 	const auth = await authenticateApiRequest(env, request);
 	if (!auth) return { auth: null, error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) } as const;
@@ -26,8 +39,9 @@ async function authenticate(env: CloudflareEnv, request: Request) {
 }
 
 /**
- * The mobile app registers its APNs token here, authenticated with the same
- * device key it uses for JMAP. Revoking the key removes the registration.
+ * The mobile app registers its push token here (APNs token or FCM token),
+ * authenticated with the same device key it uses for JMAP. Revoking the key
+ * removes the registration.
  */
 export async function PUT(request: Request) {
 	const env = getEnv();
@@ -39,9 +53,10 @@ export async function PUT(request: Request) {
 		return NextResponse.json({ error: "publicKey must be a raw uncompressed P-256 point" }, { status: 400 });
 	}
 	const { accountRef, ...registration } = parsed.data;
-	await registerPushDevice(env, auth.userId, auth.keyId, { ...registration, token: isRelayHandle(registration.token) ? registration.token : registration.token.toLowerCase(), clientRef: accountRef ?? null });
-	// Registrations are kept without APNs secrets, but nothing is sent; the app shows that instead of "On".
-	return NextResponse.json({ ok: true, deliverable: canDeliverTo(env, registration.token) });
+	const token = registration.platform === "fcm" || isRelayHandle(registration.token) ? registration.token : registration.token.toLowerCase();
+	await registerPushDevice(env, auth.userId, auth.keyId, { ...registration, token, clientRef: accountRef ?? null });
+	// Registrations are kept without push secrets, but nothing is sent; the app shows that instead of "On".
+	return NextResponse.json({ ok: true, deliverable: canDeliverTo(env, registration.token, registration.platform) });
 }
 
 export async function DELETE(request: Request) {

@@ -38,6 +38,8 @@ interface CloudflareEnv {
 	APNS_TEAM_ID?: string;
 	/** The .p8 file contents (PKCS#8 PEM). */
 	APNS_PRIVATE_KEY?: string;
+	/** Firebase service-account key JSON (Android push via FCM, src/lib/push/fcm.ts). */
+	FCM_SERVICE_ACCOUNT?: string;
 	/** Origin of a Mailflare push relay (mailflare-relay); lets this server push without APNS_* keys. */
 	APNS_RELAY_URL?: string;
 	/** Spamhaus Data Query Service key; enables ZEN (sending IP) and DBL (domain) checks in spam analysis. */

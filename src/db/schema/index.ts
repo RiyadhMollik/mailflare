@@ -940,7 +940,7 @@ export const pushDevices = sqliteTable(
 		apiKeyId: text("api_key_id")
 			.notNull()
 			.references(() => apiKeys.id, { onDelete: "cascade" }),
-		platform: text("platform", { enum: ["apns"] }).notNull(),
+		platform: text("platform", { enum: ["apns", "fcm"] }).notNull(),
 		token: text("token").notNull(),
 		environment: text("environment", { enum: ["production", "sandbox"] }).notNull().default("production"),
 		topic: text("topic").notNull(),

@@ -69,7 +69,7 @@ export default async function HomePage() {
   return (
     <HomeAuthProvider initialUser={initialUser}>
       {/* The landing page is always the DevToSoft dark brand, whatever theme the app uses. */}
-      <div className="dark safe-area relative min-h-dvh overflow-x-clip bg-[#050505] text-white [color-scheme:dark]">
+      <div className="dark relative overflow-x-clip bg-[#050505] text-white [color-scheme:dark] safe-area min-h-dvh">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-70"

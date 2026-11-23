@@ -3,6 +3,7 @@ import { getDb } from "@/db";
 import { pushDevices } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import type { NewMessageNotification } from "@/lib/realtime/types";
+import { fcmConfig, sendFcm } from "./fcm";
 import { encryptPreview, importApnsKey, signApnsJwt } from "./native-crypto";
 import { isRelayHandle, relayBaseUrl, sendViaRelay } from "./relay";
 
@@ -22,11 +23,12 @@ function apnsConfig(env: CloudflareEnv): ApnsConfig | null {
 
 /** Whether this server can deliver a push at all: with its own APNs key or through a relay. */
 export function isNativePushConfigured(env: CloudflareEnv): boolean {
-	return apnsConfig(env) !== null || relayBaseUrl(env) !== null;
+	return apnsConfig(env) !== null || relayBaseUrl(env) !== null || fcmConfig(env) !== null;
 }
 
-/** Whether a registration with this token can be delivered: a relay handle needs the relay, an APNs token needs a key. */
-export function canDeliverTo(env: CloudflareEnv, token: string): boolean {
+/** Whether a registration with this token can be delivered: FCM needs the service account, a relay handle needs the relay, an APNs token needs a key. */
+export function canDeliverTo(env: CloudflareEnv, token: string, platform: "apns" | "fcm" = "apns"): boolean {
+	if (platform === "fcm") return fcmConfig(env) !== null;
 	return isRelayHandle(token) ? relayBaseUrl(env) !== null : apnsConfig(env) !== null;
 }
 
@@ -43,7 +45,7 @@ async function providerToken(config: ApnsConfig): Promise<string> {
 }
 
 export type PushRegistration = {
-	platform: "apns";
+	platform: "apns" | "fcm";
 	token: string;
 	environment: "production" | "sandbox";
 	topic: string;
@@ -98,8 +100,9 @@ export async function sendNativePush(env: CloudflareEnv, userIds: string[], mess
 	}
 	const config = apnsConfig(env);
 	const relay = relayBaseUrl(env);
+	const fcm = fcmConfig(env);
 	let apnsToken: string | null = null;
-	if (config && devices.some((device) => !isRelayHandle(device.token))) {
+	if (config && devices.some((device) => device.platform !== "fcm" && !isRelayHandle(device.token))) {
 		try {
 			apnsToken = await providerToken(config);
 		} catch (error) {
@@ -109,6 +112,25 @@ export async function sendNativePush(env: CloudflareEnv, userIds: string[], mess
 	const stale: string[] = [];
 	const results = await Promise.allSettled(
 		devices.map(async (device) => {
+			if (device.platform === "fcm") {
+				if (!fcm) {
+					console.warn("Android push skipped: FCM_SERVICE_ACCOUNT is not set");
+					return;
+				}
+				// Ids only: the app fetches sender and subject over JMAP, so Google never sees the mail.
+				const result = await sendFcm(
+					fcm,
+					device.token,
+					{ v: "1", accountId: device.clientRef ?? device.userId, mailboxId: message.mailboxId, messageId: message.messageId, previews: device.previews ? "1" : "0" },
+					message.messageId,
+				);
+				if (result.kind === "sent") console.info("FCM push sent");
+				else if (result.kind === "gone") {
+					console.warn(`FCM dropped a device (${result.status})`);
+					stale.push(device.id);
+				} else console.warn(`FCM push failed (${result.status} ${result.error})`);
+				return;
+			}
 			const payload = await buildApnsPayload(device, device.clientRef ?? device.userId, message);
 			const collapseId = message.messageId.slice(0, 64);
 			if (isRelayHandle(device.token)) {
