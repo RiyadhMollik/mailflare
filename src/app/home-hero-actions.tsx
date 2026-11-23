@@ -18,7 +18,7 @@ export function HomeHeroActions() {
 					<ArrowRight className="h-4 w-4" />
 				</Link>
 			</Button>
-			<Button size="lg" variant="outline" asChild className="rounded-xl border-white/15 bg-transparent px-6 font-bold uppercase tracking-wide text-white hover:bg-white/5">
+			<Button size="lg" variant="outline" asChild className="rounded-xl border-[rgb(255_255_255/0.15)] bg-transparent px-6 font-bold uppercase tracking-wide text-white hover:bg-[rgb(255_255_255/0.05)]">
 				<Link href={hasUser ? "/inbox" : "/login"}>
 					{hasUser ? t("home.viewInbox") : t("home.logIn")}
 				</Link>

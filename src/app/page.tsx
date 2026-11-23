@@ -86,7 +86,7 @@ export default async function HomePage() {
           className="pointer-events-none absolute -left-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-[#DDF000]/10 blur-[120px]"
         />
 
-        <div className="relative border-b border-white/5 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60">
+        <div className="relative border-b border-[rgb(255_255_255/0.05)] text-[11px] font-medium uppercase tracking-[0.18em] text-[rgb(255_255_255/0.6)]">
           <div className="mx-auto flex h-8 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-[#DDF000]" />
@@ -105,7 +105,7 @@ export default async function HomePage() {
             <span className="font-display text-lg font-bold uppercase tracking-tight">{branding.appName}</span>
           </Link>
 
-          <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.14em] text-white/75 md:flex">
+          <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-[0.14em] text-[rgb(255_255_255/0.75)] md:flex">
             <a href="#features" className="transition-colors hover:text-[#DDF000]">Features</a>
             <a href="#how" className="transition-colors hover:text-[#DDF000]">How it works</a>
             <a href={SITE_URL} target="_blank" rel="noreferrer" className="transition-colors hover:text-[#DDF000]">DevToSoft</a>
@@ -125,21 +125,21 @@ export default async function HomePage() {
               <h1 className="font-display text-[2.6rem] font-bold uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-[4.4rem]">
                 Email that moves <span className="text-[#DDF000]">business</span> forward.
               </h1>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-white/60">{t("home.subheadline")}</p>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-[rgb(255_255_255/0.6)]">{t("home.subheadline")}</p>
               <HomeHeroActions />
             </div>
 
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0a0a0a] shadow-[0_30px_90px_-40px_rgba(221,240,0,0.35)]">
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-[rgb(255_255_255/0.1)] bg-[#0a0a0a] shadow-[0_30px_90px_-40px_rgba(221,240,0,0.35)]">
+              <div className="flex items-center justify-between border-b border-[rgb(255_255_255/0.1)] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[rgb(255_255_255/0.6)]">
                 <span>{branding.appName} / Webmail</span>
-                <span className="flex items-center gap-2 text-white/75">
+                <span className="flex items-center gap-2 text-[rgb(255_255_255/0.75)]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#DDF000]" />
                   Live
                 </span>
               </div>
 
               <div className="grid min-h-[380px] grid-cols-[168px_1fr]">
-                <aside className="hidden flex-col gap-1.5 border-r border-white/10 px-3 py-4 sm:flex">
+                <aside className="hidden flex-col gap-1.5 border-r border-[rgb(255_255_255/0.1)] px-3 py-4 sm:flex">
                   <div className="mb-3 flex h-10 w-fit items-center gap-2 rounded-xl bg-[#DDF000] px-4 text-xs font-bold uppercase tracking-wide text-[#050505]">
                     <Mail className="h-4 w-4" />
                     {t("navigation.compose")}
@@ -150,7 +150,7 @@ export default async function HomePage() {
                       <div
                         key={item.labelKey}
                         className={`flex h-9 items-center justify-between rounded-lg px-3 text-sm font-medium ${
-                          item.active ? "bg-[#DDF000]/10 text-[#DDF000]" : "text-white/60"
+                          item.active ? "bg-[#DDF000]/10 text-[#DDF000]" : "text-[rgb(255_255_255/0.6)]"
                         }`}
                       >
                         <span className="flex items-center gap-3">
@@ -164,8 +164,8 @@ export default async function HomePage() {
                 </aside>
 
                 <div className="col-span-2 flex min-w-0 flex-col sm:col-span-1">
-                  <div className="flex items-center gap-3 border-b border-white/10 px-4 py-3">
-                    <div className="flex h-10 flex-1 items-center gap-3 rounded-xl bg-white/5 px-4 text-white/60">
+                  <div className="flex items-center gap-3 border-b border-[rgb(255_255_255/0.1)] px-4 py-3">
+                    <div className="flex h-10 flex-1 items-center gap-3 rounded-xl bg-[rgb(255_255_255/0.05)] px-4 text-[rgb(255_255_255/0.6)]">
                       <Search className="h-4 w-4" />
                       <span className="text-sm">{t("search.mail")}</span>
                     </div>
@@ -177,21 +177,21 @@ export default async function HomePage() {
                   <div className="flex items-center justify-between px-5 py-3">
                     <div className="flex items-center gap-3">
                       <h2 className="font-display text-base font-semibold uppercase tracking-wide">{t("home.mockPriority")}</h2>
-                      <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/75">18</span>
+                      <span className="rounded-full bg-[rgb(255_255_255/0.1)] px-2.5 py-0.5 text-xs font-medium text-[rgb(255_255_255/0.75)]">18</span>
                     </div>
-                    <span className="hidden text-xs text-white/45 md:inline">{t("home.mockUpdated")}</span>
+                    <span className="hidden text-xs text-[rgb(255_255_255/0.45)] md:inline">{t("home.mockUpdated")}</span>
                   </div>
 
-                  <div className="divide-y divide-white/5">
+                  <div className="divide-y divide-[rgb(255_255_255/0.05)]">
                     {heroMessages.map((message) => (
                       <div
                         key={message.sender}
-                        className="grid min-h-14 grid-cols-[minmax(96px,150px)_1fr_auto] items-center gap-3 px-5 text-sm transition-colors hover:bg-white/[0.03]"
+                        className="grid min-h-14 grid-cols-[minmax(96px,150px)_1fr_auto] items-center gap-3 px-5 text-sm transition-colors hover:bg-[rgb(255_255_255/0.03)]"
                       >
                         <span className="truncate font-semibold text-white">{message.sender}</span>
-                        <span className="truncate text-white/60">
-                          <span className="font-medium text-white/90">{t(message.subjectKey)}</span>
-                          <span className="hidden text-white/45 md:inline"> - {t(message.previewKey)}</span>
+                        <span className="truncate text-[rgb(255_255_255/0.6)]">
+                          <span className="font-medium text-[rgb(255_255_255/0.9)]">{t(message.subjectKey)}</span>
+                          <span className="hidden text-[rgb(255_255_255/0.45)] md:inline"> - {t(message.previewKey)}</span>
                         </span>
                         <span className="rounded-full bg-[#DDF000]/10 px-2.5 py-1 text-xs font-semibold text-[#DDF000]">
                           {t(message.badgeKey)}
@@ -202,9 +202,9 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 border-t border-white/10 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+              <div className="grid grid-cols-3 border-t border-[rgb(255_255_255/0.1)] text-[11px] font-semibold uppercase tracking-[0.16em] text-[rgb(255_255_255/0.6)]">
                 {["Receive", "Route", "Deliver"].map((label, i) => (
-                  <div key={label} className="flex items-center gap-2 px-5 py-3 [&:not(:first-child)]:border-l [&:not(:first-child)]:border-white/10">
+                  <div key={label} className="flex items-center gap-2 px-5 py-3 [&:not(:first-child)]:border-l [&:not(:first-child)]:border-[rgb(255_255_255/0.1)]">
                     <span className="text-[#DDF000]">0{i + 1}</span>
                     {label}
                   </div>
@@ -218,12 +218,12 @@ export default async function HomePage() {
             <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold uppercase leading-tight tracking-tight sm:text-5xl">
               One workspace. Your domain. <span className="text-[#DDF000]">Your rules.</span>
             </h2>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-px overflow-hidden rounded-[1.5rem] border border-[rgb(255_255_255/0.1)] bg-[rgb(255_255_255/0.1)] sm:grid-cols-2 lg:grid-cols-3">
               {features.map((f) => (
                 <div key={f.n} className="group bg-[#080808] p-7 transition-colors hover:bg-[#0f0f0f]">
                   <span className="text-xs font-semibold tracking-[0.2em] text-[#DDF000]">{f.n}</span>
                   <h3 className="mt-4 font-display text-xl font-semibold uppercase tracking-tight">{f.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-white/60">{f.body}</p>
+                  <p className="mt-3 text-sm leading-6 text-[rgb(255_255_255/0.6)]">{f.body}</p>
                 </div>
               ))}
             </div>
@@ -236,22 +236,22 @@ export default async function HomePage() {
             </h2>
             <div className="mt-12 grid gap-4 md:grid-cols-3">
               {steps.map((s) => (
-                <div key={s.n} className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-7">
+                <div key={s.n} className="rounded-2xl border border-[rgb(255_255_255/0.1)] bg-[#0a0a0a] p-7">
                   <span className="font-display text-5xl font-bold text-[#DDF000]">{s.n}</span>
                   <h3 className="mt-5 font-display text-lg font-semibold uppercase tracking-wide">{s.label}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/60">{s.body}</p>
+                  <p className="mt-2 text-sm leading-6 text-[rgb(255_255_255/0.6)]">{s.body}</p>
                 </div>
               ))}
             </div>
           </section>
 
           <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0a0a0a] px-6 py-14 text-center sm:px-12">
+            <div className="relative overflow-hidden rounded-[2rem] border border-[rgb(255_255_255/0.1)] bg-[#0a0a0a] px-6 py-14 text-center sm:px-12">
               <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-64 w-[36rem] -translate-x-1/2 rounded-full bg-[#DDF000]/10 blur-[100px]" />
               <h2 className="relative mx-auto max-w-2xl font-display text-3xl font-bold uppercase leading-tight tracking-tight sm:text-5xl">
                 Ready to take your mail <span className="text-[#DDF000]">back?</span>
               </h2>
-              <p className="relative mx-auto mt-5 max-w-xl text-white/60">Set up your domain in minutes and own every message you send and receive.</p>
+              <p className="relative mx-auto mt-5 max-w-xl text-[rgb(255_255_255/0.6)]">Set up your domain in minutes and own every message you send and receive.</p>
               <div className="relative mt-8 flex justify-center">
                 <Link
                   href={sessionUser ? "/inbox" : "/setup"}
@@ -265,11 +265,11 @@ export default async function HomePage() {
           </section>
         </main>
 
-        <footer className="relative border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
+        <footer className="relative border-t border-[rgb(255_255_255/0.1)]">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-8 text-xs text-[rgb(255_255_255/0.45)] sm:flex-row sm:px-6 lg:px-8">
             <span>
               &copy; {new Date().getFullYear()}{" "}
-              <a href={SITE_URL} target="_blank" rel="noreferrer" className="font-semibold text-white/75 transition-colors hover:text-[#DDF000]">
+              <a href={SITE_URL} target="_blank" rel="noreferrer" className="font-semibold text-[rgb(255_255_255/0.75)] transition-colors hover:text-[#DDF000]">
                 DevToSoft
               </a>
               . Innovate, automate, elevate.
